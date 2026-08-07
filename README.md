@@ -10,7 +10,8 @@ Put one or both mods on your phone, tablet or second machine - over your own hom
 
 **[Download `serve_dashboard.ps1`](serve_dashboard.ps1)**
 
-Windows warns **"Open File - Security Warning"** about editing/running downloaded scripts.<br />
+
+- Windows warns **"Open File - Security Warning"** about editing/running downloaded scripts.<br />
 Choose **Open**.<br />
 If you don't want to be asked every time untick **"Always ask before opening this file"**.
 
