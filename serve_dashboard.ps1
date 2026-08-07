@@ -6,9 +6,12 @@
 #       Options -> Mods -> PZ Map   -> "Copy map URL"
 #  2. Paste it on a blank line in the box below. One mod per line.
 #  3. Save this file and close it. Then right-click it -> Run with PowerShell.
-#  4. Windows will ask once to allow this on your network - choose PRIVATE.
+#  4. Windows warns "Open File - Security Warning" about running a downloaded
+#     file. Choose OPEN. To stop it asking every time, untick "Always ask
+#     before opening this file" first.
+#  5. Windows will ask once to allow this on your network - choose PRIVATE.
 #     (If it never asks, or you miss it, this script tells you what to do.)
-#  5. On the other device, open the http:// address it prints. Tap the mod name.
+#  6. On the other device, open the http:// address it prints. Tap the mod name.
 #
 #  It makes a PZ_Dashboards folder holding shortcuts to the mod and to your
 #  live data, then serves that folder on your local network. Nothing is copied,
@@ -30,12 +33,10 @@ $port = 8000
 
 $ErrorActionPreference = 'Stop'
 
-# A single-quoted here-string takes every line verbatim, which is the whole
-# point: the URL is pasted BARE onto a blank line, with no quotes to land
-# between and nothing to escape. So the banner lines above can sit inside the
-# block and act as the paste target, and get dropped again here. Anything else
-# that isn't blank and isn't a banner is passed through to the loop below, so a
-# mis-paste still gets told what went wrong rather than vanishing.
+# The single-quoted here-string takes every line verbatim, so the URL can be
+# pasted bare with nothing to escape and the banners can live inside the box.
+# Drop blank and banner lines; anything else falls through to the loop below,
+# so a mis-paste gets an error rather than vanishing.
 $urls = @($urls -split "`r?`n" |
           ForEach-Object { $_.Trim() } |
           Where-Object { $_ -and -not $_.StartsWith('#') })
@@ -46,14 +47,12 @@ function Convert-FileUrl([string]$u) {
   ($p -replace '/', '\').TrimEnd('\')
 }
 
-# Where the folder goes. Running from a saved .ps1 -> right next to it, which is
-# the location the player actually chose. Pasted into a console -> Documents,
-# because there the working directory is whatever PowerShell happened to open in
-# and is nobody's decision.
+# Beside the saved .ps1 (a location the player chose); Documents when pasted,
+# where the working directory is nobody's decision.
 $base = if ($PSScriptRoot) { $PSScriptRoot } else { [Environment]::GetFolderPath('MyDocuments') }
 if (-not $base) { $base = $env:USERPROFILE }
-# A junction inside a synced folder is a bad idea - OneDrive walking a link into
-# the Steam workshop folder is not a discovery anyone wants to make.
+# Never put a junction in a synced folder - OneDrive would walk it into the
+# Steam workshop folder.
 if ($base -match 'OneDrive') {
   $base = Join-Path $env:USERPROFILE 'Zomboid'
   Write-Host "That folder is synced by OneDrive - using $base instead." -ForegroundColor Yellow
@@ -90,10 +89,8 @@ function New-SafeJunction([string]$link, [string]$target) {
   $existing = Get-Item -LiteralPath $link -Force -ErrorAction SilentlyContinue
   if ($existing) {
     if ($existing.LinkType) {
-      # Deletes the LINK only, and never recurses - so it cannot touch the
-      # target's contents even where Remove-Item -Recurse would. The targets
-      # here are the player's mod folder and their live data; getting this
-      # wrong is the one mistake in this script that could not be undone.
+      # Deletes the LINK only. Never Remove-Item -Recurse: the targets are the
+      # player's mod folder and their live data, and that would delete through.
       [IO.Directory]::Delete($link, $false)
     } else {
       throw "$link already exists as a real folder - move it aside and re-run"
@@ -102,8 +99,7 @@ function New-SafeJunction([string]$link, [string]$target) {
   New-Item -ItemType Junction -Path $link -Target $target | Out-Null
 }
 
-# The dashboard URL carries BOTH paths: the page before ?d=, the data folder
-# after it. So one pasted string is all the setup this needs.
+# The dashboard URL carries both paths: the page before ?d=, the data after it.
 $mods = @()
 foreach ($u in $urls) {
   if ($u -notmatch '^(?<page>file:[^?]+)\?d=(?<data>file:.+)$') {
@@ -115,7 +111,7 @@ foreach ($u in $urls) {
   $page = Convert-FileUrl $Matches.page
   $data = Convert-FileUrl $Matches.data
   $web  = Split-Path $page -Parent           # ...\<ModName>\42\media\web
-  # web -> media -> 42 -> <ModName>. Four levels; three silently names it "42".
+  # web -> media -> 42 -> <ModName>. Four levels; three silently gives "42".
   $name = Split-Path (Split-Path (Split-Path (Split-Path $web -Parent) -Parent) -Parent) -Leaf
 
   if (-not (Test-Path -LiteralPath $web)) {
@@ -173,14 +169,10 @@ Write-Host "  Close this window to stop."
 Write-Host ""
 
 # --- Will Windows Firewall actually let the other device in? ----------------
-# Worth the lines because the failure is INVISIBLE: a blocked inbound connection
-# is dropped, not refused, so the other device spins forever and nothing is
-# printed on either end. The "choose PRIVATE" prompt is not enough on its own -
-# it can be dismissed, answered wrong, or (seen in testing) create the Private
-# rules and leave them DISABLED while the Public ones are on. Loopback skips the
-# inbound filter, so the machine serving the page can never detect this itself
-# by fetching its own URL - the rules have to be read directly.
-# Both cmdlets below read fine WITHOUT Administrator; only the fix needs it.
+# The failure is invisible: a blocked inbound connection is dropped, not
+# refused, so the other device spins forever and neither end prints anything.
+# Loopback skips the inbound filter, so fetching our own URL can't detect it -
+# the rules have to be read directly. Reading needs no Administrator.
 function Test-InboundAllowed([int]$p) {
   try {
     $cat = (Get-NetConnectionProfile -ErrorAction SilentlyContinue |
@@ -190,8 +182,8 @@ function Test-InboundAllowed([int]$p) {
     # Get-NetConnectionProfile says "DomainAuthenticated"; firewall rules say "Domain".
     $name = if ("$cat" -eq 'DomainAuthenticated') { 'Domain' } else { "$cat" }
 
-    # Every enabled inbound Allow rule that covers the profile we're actually on.
-    # Filters join back to rules on InstanceID == rule.Name.
+    # Enabled inbound Allow rules covering the profile we're on. Filters join
+    # back to rules on InstanceID == rule.Name.
     $rules = @{}
     foreach ($r in (Get-NetFirewallRule -Direction Inbound -Action Allow -Enabled True `
                       -ErrorAction SilentlyContinue)) {
@@ -199,8 +191,8 @@ function Test-InboundAllowed([int]$p) {
     }
     if ($rules.Count -eq 0) { return $null }
 
-    # One pass over the application filters does double duty: finds a rule for
-    # THIS executable, and records which rules are scoped to some program.
+    # One pass: find a rule for THIS exe, and record which rules are scoped to
+    # a program at all.
     $exe = (Get-Process -Id $PID).Path
     $appScoped = @{}
     $ours = $false
@@ -215,10 +207,9 @@ function Test-InboundAllowed([int]$p) {
     foreach ($f in (Get-NetFirewallPortFilter -ErrorAction SilentlyContinue)) {
       if ("$($f.Protocol)" -ne 'TCP' -or -not $rules.ContainsKey($f.InstanceID)) { continue }
       $lp = @($f.LocalPort)
-      # An app rule leaves LocalPort as "Any", so accepting "Any" on its own made
-      # every allowed program (Steam, a browser) read as "the port is open" - 30
-      # false matches on the test machine, reporting OK while the device hung.
-      # Only a rule that is not scoped to some other program opens a port.
+      # An app rule leaves LocalPort as "Any", so counting "Any" on its own made
+      # every allowed program (Steam, a browser) read as "port open" - it passed
+      # in the blocked state. Only an unscoped rule opens a port.
       if ($lp -contains "$p" -or ($lp -contains 'Any' -and -not $appScoped.ContainsKey($f.InstanceID))) {
         return @{ Allowed = $true; Category = $name }
       }
@@ -237,9 +228,9 @@ if ($fw -and -not $fw.Allowed) {
   Write-Host "  so the other device will just spin forever with no error." -ForegroundColor Yellow
   Write-Host ""
   if ($fw.Category -eq 'Public') {
-    # Don't talk a player into opening a port on a network Windows has classed as
-    # untrusted. If it IS their home network the category is simply wrong, and
-    # fixing that is both the safer and the smaller change.
+    # Don't talk a player into opening a port on a network Windows classes as
+    # untrusted. If it is their home network, re-classifying it is the safer
+    # and smaller fix.
     Write-Host "  Windows has this network marked PUBLIC, which is how it treats" -ForegroundColor Yellow
     Write-Host "  cafe and hotel wifi. If this is your own home network, fix that" -ForegroundColor Yellow
     Write-Host "  instead - it is safer than opening a port to a public network:" -ForegroundColor Yellow
@@ -292,10 +283,9 @@ try {
         continue
       }
 
-      # Traversal defence on the LOGICAL path. GetFullPath collapses ".." and
-      # does NOT resolve junctions, so our two links stay inside the root by this
-      # test while an escape attempt does not. Verified against raw-socket
-      # requests, including the %2e%2e form a normalizing HTTP client hides.
+      # Traversal check on the LOGICAL path: GetFullPath collapses ".." and does
+      # NOT resolve junctions, so our links stay inside the root by this test
+      # while an escape attempt doesn't.
       $full = [IO.Path]::GetFullPath((Join-Path $rootFull ($path.TrimStart('/') -replace '/', '\')))
       if (-not $full.StartsWith($rootFull, [StringComparison]::OrdinalIgnoreCase)) {
         Send-Response $stream 403 'Forbidden' 'text/plain' ([Text.Encoding]::UTF8.GetBytes('no'))
@@ -306,11 +296,10 @@ try {
         continue
       }
 
-      # .txt is served as JavaScript deliberately. The page pulls its data files
-      # with a <script> tag; over file:// they run because there are no headers
-      # to object to, but over HTTP a text/plain script executes only while no
-      # nosniff header is present - a bet on browser behaviour, not a guarantee.
-      # Naming the type correctly removes the question.
+      # .txt is served as JavaScript deliberately: the page pulls its data with
+      # a <script> tag, and over HTTP a text/plain script runs only while no
+      # nosniff header is present - a bet on browser behaviour. If the page ever
+      # loads but shows no data over HTTP, look here first.
       $type = switch ([IO.Path]::GetExtension($full).ToLower()) {
         '.html' { 'text/html; charset=utf-8' }
         '.txt'  { 'application/javascript; charset=utf-8' }

@@ -12,9 +12,12 @@ Put one or both mods on your phone, tablet or second machine - over your own hom
 
 1. In game: **Options > Mods > PZ Pulse > "Copy dashboard URL"** (or **PZ Map > "Copy map URL"**)
 2. Open the script in Notepad and paste it on a blank line in the box at the top
-3. Right-click the script > **Run with PowerShell**, and choose **Private** when Windows asks
-   about your network
-4. On your phone, open the address it prints, and tap the mod name
+3. Right-click the script > **Run with PowerShell**
+4. Windows warns **"Open File - Security Warning"** about running something you downloaded.
+   Choose **Open**. If you don't want to be asked every time, untick **"Always ask before
+   opening this file"** before you do
+5. Choose **Private** when Windows asks about your network
+6. On your phone, open the address it prints, and tap the mod name
 
 Both mods at once is fine - paste each URL on its own line. 
 
@@ -37,7 +40,9 @@ I wouldn't trust me either. It's about 300 lines. Ask a friendly online assistan
 
 **"Running scripts is disabled on this system."** Windows blocks scripts downloaded from the
 internet. Right-click the file > **Properties** > tick **Unblock** > OK. Or run it as
-`powershell -ExecutionPolicy Bypass -File serve_dashboard.ps1`.
+`powershell -ExecutionPolicy Bypass -File serve_dashboard.ps1`. **Unblock** also stops the
+"Open File - Security Warning" box, as does unticking "Always ask before opening this file"
+in the box itself.
 
 **The phone just spins forever and never loads.** That's almost always Windows Firewall. A blocked
 connection is dropped rather than refused, so nothing reports an error at either end - which is
