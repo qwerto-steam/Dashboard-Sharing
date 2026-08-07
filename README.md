@@ -10,14 +10,14 @@ Put one or both mods on your phone, tablet or second machine - over your own hom
 
 **[Download `serve_dashboard.ps1`](serve_dashboard.ps1)**
 
+0. Windows warns **"Open File - Security Warning"** about editing/running downloaded scripts.
+   Choose **Open**. If you don't want to be asked every time, untick **"Always ask before
+   opening this file"** before you do
 1. In game: **Options > Mods > PZ Pulse > "Copy dashboard URL"** (or **PZ Map > "Copy map URL"**)
 2. Open the script in Notepad and paste it on a blank line in the box at the top
 3. Right-click the script > **Run with PowerShell**
-4. Windows warns **"Open File - Security Warning"** about running something you downloaded.
-   Choose **Open**. If you don't want to be asked every time, untick **"Always ask before
-   opening this file"** before you do
-5. Choose **Private** when Windows asks about your network
-6. On your phone, open the address it prints, and tap the mod name
+4. Choose **Private** when Windows asks about your network
+5. On your phone, open the address it prints, and tap the mod name
 
 Both mods at once is fine - paste each URL on its own line. 
 
