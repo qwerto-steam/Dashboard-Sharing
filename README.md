@@ -10,9 +10,9 @@ Put one or both mods on your phone, tablet or second machine - over your own hom
 
 **[Download `serve_dashboard.ps1`](serve_dashboard.ps1)**
 
-Windows warns **"Open File - Security Warning"** about editing/running downloaded scripts.
-
-Choose **Open**. If you don't want to be asked every time untick **"Always ask before opening this file"**.
+Windows warns **"Open File - Security Warning"** about editing/running downloaded scripts.<br />
+Choose **Open**.<br />
+If you don't want to be asked every time untick **"Always ask before opening this file"**.
 
 1. In game: **Options > Mods > PZ Pulse > "Copy dashboard URL"** (or **PZ Map > "Copy map URL"**)
 2. Open the script in Notepad and paste it on a blank line in the box at the top
