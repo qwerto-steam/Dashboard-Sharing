@@ -1,11 +1,14 @@
 # Watch your dashboard on another device
 
 A small PowerShell script.
+
 Put one or both mods on your phone, tablet or second machine - over your own home network.
+
 **[PZ Pulse](https://steamcommunity.com/sharedfiles/filedetails/?id=3753700423)**
+
 **[PZ Map](https://steamcommunity.com/sharedfiles/filedetails/?id=3766049939)**
 
-**[Download `serve_dashboard.ps1`](serve_dashboard.ps1)**, then:
+**[Download `serve_dashboard.ps1`](serve_dashboard.ps1)**
 
 1. In game: **Options > Mods > PZ Pulse > "Copy dashboard URL"** (or **PZ Map > "Copy map URL"**)
 2. Open the script in Notepad and paste it on a blank line in the box at the top
@@ -13,9 +16,11 @@ Put one or both mods on your phone, tablet or second machine - over your own hom
    about your network
 4. On your phone, open the address it prints, and tap the mod name
 
-Both mods at once is fine - paste each URL on its own line. Close the window to stop it.
+Both mods at once is fine - paste each URL on its own line. 
 
-## What to expect
+Close the window to stop it.
+
+## What are we doing?
 
 It makes a `PZ_Dashboards` folder containing four **shortcuts** - to each mod's page, and to the
 folder the game writes your live status into - and serves that one folder on your local network.
@@ -42,15 +47,14 @@ finds it. Read what it printed.
 **"Can't find the data folder."** Load a save once with the mod enabled, then run it again. The
 folder doesn't exist until the game has written to it.
 
-## Security
+## Security / Streaming
 
-**Don't put it on the public internet.** No port forwarding. If you want people outside your house
-to see it, use [Tailscale](https://tailscale.com/) and share the tailnet address instead: no open
-ports, and only devices you've approved. For streaming, don't share a URL at all - point an **OBS
-Browser Source** at the dashboard's normal `file:///` address and it's in your video for free.
+**Don't put it on the public internet.** No port forwarding. For streaming, don't share a URL 
+at all - point an **OBS Browser Source** at the dashboard's normal `file:///` address and it's 
+in your video for free.
 
 ## Licence
 
 [0BSD](LICENSE) - do whatever you like with it, no attribution required.
 
-**Not the names or the logos though. Those I'm keeping.**
+**Not any names or the logos though. Those I'm keeping.**
