@@ -1,19 +1,19 @@
 # Watch your dashboard on another device
 
-A small PowerShell script.
-
-Put one or both mods on your phone, tablet or second machine - over your own home network.
+A small PowerShell script to serve **[PZ Pulse](https://steamcommunity.com/sharedfiles/filedetails/?id=3753700423)** or **[PZ Map](https://steamcommunity.com/sharedfiles/filedetails/?id=3770149036)**.<br />
+Useful if you want to use your phone, tablet or a second machine - over your own home network.
 
 The script: **[serve_dashboard.ps1](serve_dashboard.ps1)**
 
-The mods it serves: **[PZ Pulse](https://steamcommunity.com/sharedfiles/filedetails/?id=3753700423)** **[PZ Map](https://steamcommunity.com/sharedfiles/filedetails/?id=3770149036)**
+## INSTRUCTIONS
 
 - Windows warns **"Open File - Security Warning"** about editing/running downloaded scripts.<br />
 Choose **Open**.<br />
 If you don't want to be asked every time untick **"Always ask before opening this file"**.
 
+0. Open your script in Notepad.
 1. In game: **Options > Mods > PZ Pulse > "Copy dashboard URL"** (or **PZ Map > "Copy map URL"**)
-2. Open the script in Notepad and paste it on a blank line in the box at the top
+2. Paste it on one of the 2 blank lines in the box at the top and save it.
 3. Right-click the script > **Run with PowerShell**
 4. Choose **Private** when Windows asks about your network
 5. On your phone, open the address it prints, and tap the mod name
