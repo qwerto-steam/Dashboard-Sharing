@@ -1,13 +1,4 @@
 # Line endings, pinned the same way the source repo pins them.
-#
-# Git for Windows sets core.autocrlf=true in the SYSTEM config, so without this
-# file every checkout rewrites these files to CRLF and git prints "LF will be
-# replaced by CRLF" for each one. .gitattributes overrides autocrlf, which makes
-# it the only reliable place to say this.
-#
-# It matters more here than it looks: the staged tree is compared byte-for-byte
-# against its source by the drift check, so a CRLF rewrite in the working copy
-# would report drift and a line-endings warning on every run, forever.
 * text=auto eol=lf
 
 # The script is run on Windows, where CRLF is native -- but PowerShell reads LF
