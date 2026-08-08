@@ -4,12 +4,9 @@ A small PowerShell script.
 
 Put one or both mods on your phone, tablet or second machine - over your own home network.
 
-**[PZ Pulse](https://steamcommunity.com/sharedfiles/filedetails/?id=3753700423)**
+The script: **[serve_dashboard.ps1](serve_dashboard.ps1)**
 
-**[PZ Map](https://steamcommunity.com/sharedfiles/filedetails/?id=3770149036)**
-
-**[serve_dashboard.ps1](serve_dashboard.ps1)**
-
+The mods it serves: **[PZ Pulse](https://steamcommunity.com/sharedfiles/filedetails/?id=3753700423)** **[PZ Map](https://steamcommunity.com/sharedfiles/filedetails/?id=3770149036)**
 
 - Windows warns **"Open File - Security Warning"** about editing/running downloaded scripts.<br />
 Choose **Open**.<br />
