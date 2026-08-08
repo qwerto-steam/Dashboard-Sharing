@@ -6,9 +6,9 @@ Put one or both mods on your phone, tablet or second machine - over your own hom
 
 **[PZ Pulse](https://steamcommunity.com/sharedfiles/filedetails/?id=3753700423)**
 
-**[PZ Map](https://steamcommunity.com/sharedfiles/filedetails/?id=3766049939)**
+**[PZ Map](https://steamcommunity.com/sharedfiles/filedetails/?id=3770149036)**
 
-**[Download `serve_dashboard.ps1`](serve_dashboard.ps1)**
+**[serve_dashboard.ps1](serve_dashboard.ps1)**
 
 
 - Windows warns **"Open File - Security Warning"** about editing/running downloaded scripts.<br />
