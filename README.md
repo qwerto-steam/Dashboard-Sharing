@@ -1,13 +1,13 @@
+## Ah the old sketchy internet script trick. I'm not falling for that one again...
+
+I wouldn't trust me either. It's about 300 lines. Ask a friendly online assistant to read it.
+
 # Watch your dashboard on another device
 
 A small PowerShell script to serve **[PZ Pulse](https://steamcommunity.com/sharedfiles/filedetails/?id=3753700423)** or **[PZ Map](https://steamcommunity.com/sharedfiles/filedetails/?id=3770149036)** over your own home network.<br />
 Useful if you want to use your phone, tablet or a second machine.
 
 The script: **[serve_dashboard.ps1](serve_dashboard.ps1)**
-
-## Ah the old sketchy internet script trick. I'm not falling for that again...
-
-I wouldn't trust me either. It's about 300 lines. Ask a friendly online assistant to read it.
 
 ## INSTRUCTIONS
 
@@ -27,7 +27,7 @@ Both mods at once is fine - paste each URL on its own line.
 
 Close the window to stop it.
 
-## What are we doing?
+# What are we doing?
 
 It makes a `PZ_Dashboards` folder containing four **shortcuts** - to each mod's page, and to the
 folder the game writes your live status into - and serves that one folder on your local network.
@@ -52,7 +52,7 @@ finds it. Read what it printed.
 **"Can't find the data folder."** Load a save once with the mod enabled, then run it again. The
 folder doesn't exist until the game has written to it.
 
-## Security / Streaming
+# Security / Streaming
 
 **Don't put it on the public internet.** No port forwarding. For streaming, don't share a URL 
 at all - point an **OBS Browser Source** at the dashboard's normal `file:///` address and it's 
