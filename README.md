@@ -7,7 +7,8 @@ The script: **[serve_dashboard.ps1](serve_dashboard.ps1)**
 
 ## INSTRUCTIONS
 
-- Windows warns **"Open File - Security Warning"** about editing/running downloaded scripts.<br />
+- **Security Note:**<br />
+Windows warns **"Open File - Security Warning"** about editing/running downloaded scripts.<br />
 Choose **Open**.<br />
 If you don't want to be asked every time untick **"Always ask before opening this file"**.
 
