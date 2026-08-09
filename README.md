@@ -1,9 +1,13 @@
 # Watch your dashboard on another device
 
-A small PowerShell script to serve **[PZ Pulse](https://steamcommunity.com/sharedfiles/filedetails/?id=3753700423)** or **[PZ Map](https://steamcommunity.com/sharedfiles/filedetails/?id=3770149036)**.<br />
-Useful if you want to use your phone, tablet or a second machine - over your own home network.
+A small PowerShell script to serve **[PZ Pulse](https://steamcommunity.com/sharedfiles/filedetails/?id=3753700423)** or **[PZ Map](https://steamcommunity.com/sharedfiles/filedetails/?id=3770149036)** over your own home network.<br />
+Useful if you want to use your phone, tablet or a second machine.
 
 The script: **[serve_dashboard.ps1](serve_dashboard.ps1)**
+
+## Ah the old sketchy internet script trick. I'm not falling for that again...
+
+I wouldn't trust me either. It's about 300 lines. Ask a friendly online assistant to read it.
 
 ## INSTRUCTIONS
 
@@ -31,10 +35,6 @@ folder the game writes your live status into - and serves that one folder on you
 **Nothing is copied and nothing is modified.** Because they are shortcuts rather than copies, a
 mod update can't leave a stale version behind. Deleting the folder afterwards removes only the
 shortcuts; your mods, your saves and your game data aren't touched.
-
-## Ah the old sketchy internet script trick. I'm not falling for that again...
-
-I wouldn't trust me either. It's about 300 lines. Ask a friendly online assistant to read it.
 
 ## If something doesn't work
 
