@@ -244,10 +244,17 @@ if ($fw -and -not $fw.Allowed) {
   Write-Host "  Press Start, type 'terminal', right-click Terminal and pick" -ForegroundColor Yellow
   Write-Host "  'Run as administrator'. Paste this one line and press Enter:" -ForegroundColor Yellow
   Write-Host ""
-  Write-Host "    New-NetFirewallRule -DisplayName 'PZ Dashboards' -Direction Inbound -Action Allow -Protocol TCP -LocalPort $port -Profile $($fw.Category)" -ForegroundColor Cyan
+  Write-Host "    New-NetFirewallRule -DisplayName 'PZ Dashboards' -Direction Inbound -Action Allow -Protocol TCP -LocalPort $port -Profile $($fw.Category) -RemoteAddress LocalSubnet" -ForegroundColor Cyan
   Write-Host ""
   Write-Host "  It takes effect straight away - leave this window running and" -ForegroundColor Yellow
   Write-Host "  just reload the page on the other device." -ForegroundColor Yellow
+  Write-Host ""
+  # A Windows firewall rule survives a reboot, so the thing worth saying is how
+  # to take it back off. The .sh says this for ufw; without it the port stays
+  # open for good after one evening of sharing.
+  Write-Host "  That rule stays until you remove it - a reboot does not. When you" -ForegroundColor Yellow
+  Write-Host "  are done sharing, in an administrator terminal:" -ForegroundColor Yellow
+  Write-Host "    Remove-NetFirewallRule -DisplayName 'PZ Dashboards'" -ForegroundColor Cyan
   Write-Host "  ---------------------------------------------------------------" -ForegroundColor Yellow
   Write-Host ""
 }
