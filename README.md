@@ -13,7 +13,7 @@ Both do the same thing. Pick one - the steps below are the same either way.
 
 ## INSTRUCTIONS
 
-- **Security Note:**<br />
+- **Windows Security Note:**<br />
 Windows warns **"Open File - Security Warning"** about editing/running downloaded scripts.<br />
 Choose **Open**.<br />
 If you don't want to be asked every time untick **"Always ask before opening this file"**.
@@ -45,11 +45,15 @@ shortcuts; your mods, your saves and your game data aren't touched.
 
 ## If something doesn't work
 
-**Windows: "Running scripts is disabled on this system."** Windows blocks scripts downloaded from
-the internet. Right-click the file > **Properties** > tick **Unblock** > OK. Or run it as
-`powershell -ExecutionPolicy Bypass -File serve_dashboard.ps1`. **Unblock** also stops the
-"Open File - Security Warning" box, as does unticking "Always ask before opening this file"
-in the box itself.
+**Windows: the script refuses to start** - "**is not digitally signed**", or "**running scripts is
+disabled on this system**". Windows blocks scripts downloaded from the internet. Right-click the
+file > **Properties** > tick **Unblock** > OK. Or run it as `powershell -ExecutionPolicy Bypass
+-File serve_dashboard.ps1`. **Unblock** also stops the "Open File - Security Warning" box, as does
+unticking "Always ask before opening this file" in the box itself.
+
+You'll only see this if you started the script by typing its name in a terminal. Right-click >
+**Run with PowerShell** (step 3 above) isn't affected, so if you're stuck here, that's the
+easier way out.
 
 **Linux: "Permission denied" running `./serve_dashboard.sh`.** The executable bit doesn't always
 survive the download. Use `bash serve_dashboard.sh` instead, or `chmod +x serve_dashboard.sh` once.

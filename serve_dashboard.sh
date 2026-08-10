@@ -266,9 +266,7 @@ fi
 #
 # Every candidate is shape-checked before it is accepted. Without that, a
 # command that does not exist the way this expects prints its own usage text ON
-# STDOUT and the whole page of it becomes the "address" - which is not a
-# hypothetical: it is what the macOS line did when a machine had a different
-# `ipconfig` on PATH, and the printed URL was forty lines long.
+# STDOUT and the whole page of it becomes the "address."
 keep_ipv4() { local v; v=$(head -n1); [[ $v =~ ^([0-9]{1,3}\.){3}[0-9]{1,3}$ ]] && printf '%s' "$v"; }
 
 lan_ip=$(ip -4 route get 1.1.1.1 2>/dev/null |
