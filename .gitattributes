@@ -4,3 +4,8 @@
 # The script is run on Windows, where CRLF is native -- but PowerShell reads LF
 # perfectly well, and matching the source repo keeps one rule instead of two.
 *.ps1 text eol=lf
+
+# For the shell script this is not cosmetic: a CRLF shebang line makes the
+# kernel look for an interpreter named "bash\r" and the whole file fails with
+# "bad interpreter: No such file or directory".
+*.sh text eol=lf
