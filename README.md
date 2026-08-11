@@ -1,11 +1,11 @@
 ## Ah the old sketchy internet script trick. I'm not falling for that one again...
 
-I wouldn't trust me either. Each one is about 300 lines. Ask a friendly online assistant to read it.
+I wouldn't trust me either. Each script is about 300 lines. Ask a friendly online assistant to read it.
 
 # Watch your dashboard on another device
 
 A small script to serve **[PZ Pulse](https://steamcommunity.com/sharedfiles/filedetails/?id=3753700423)** or **[PZ Map](https://steamcommunity.com/sharedfiles/filedetails/?id=3770149036)** over your own home network.<br />
-Useful if you want to use your phone, tablet or a second machine.
+Useful if you want to use your phone, tablet, OBS or a second machine.
 
 The script: **[serve_dashboard.ps1](serve_dashboard.ps1)** (Windows) or **[serve_dashboard.sh](serve_dashboard.sh)** (Linux, macOS)
 
@@ -28,20 +28,24 @@ If you don't want to be asked every time untick **"Always ask before opening thi
    **Windows** asks about your network once - choose **Private**<br />
    **Linux** never asks, so the script checks instead, and prints the one command to run if it
    finds a firewall in the way
-5. On your phone, open the address it prints, and tap the mod name
+5. On your phone - **on the same wifi as your PC** - open the address it prints, and tap the mod
+   name
 
 Both mods at once is fine - paste each URL on its own line.
 
 Close the window (Ctrl+C on Linux) to stop it.
 
-# What are we doing?
+## What are we doing?
 
-It makes a `PZ_Dashboards` folder containing four **shortcuts** - to each mod's page, and to the
-folder the game writes your live status into - and serves that one folder on your local network.
+It makes a `PZ_Dashboards` folder next to the script, and serves that one folder on your local
+network. For each URL you pasted it puts two **shortcuts** in there - one to that mod's page, one
+to the folder the game writes your live status into - plus a small menu page listing them, which is
+what your phone lands on.
 
-**Nothing is copied and nothing is modified.** Because they are shortcuts rather than copies, a
-mod update can't leave a stale version behind. Deleting the folder afterwards removes only the
-shortcuts; your mods, your saves and your game data aren't touched.
+**Nothing of yours is copied or modified.** That menu page is the only file it writes. Because the
+rest are shortcuts rather than copies, a mod update can't leave a stale version behind, and
+deleting the folder afterwards removes only the shortcuts; your mods, your saves and your game data
+aren't touched.
 
 ## If something doesn't work
 
@@ -74,10 +78,10 @@ letters (`C:`, `S:`) and no browser of yours can open it - from inside Wine the 
 to know what those stand for. The `.sh` script works it out for you. Paste the URL exactly as the
 game gave it to you, and ignore the warning in the mod options telling you to convert it by hand.
 
-# Security / Streaming
+## Security / Streaming
 
-**Don't put it on the public internet.** No port forwarding. For streaming, don't share a URL 
-at all - point an **OBS Browser Source** at the dashboard's normal `file:///` address and it's 
+**Don't put it on the public internet.** No port forwarding. For streaming, don't share a URL
+at all - point an **OBS Browser Source** at the dashboard's normal `file:///` address and it's
 in your video for free.
 
 ## Licence
